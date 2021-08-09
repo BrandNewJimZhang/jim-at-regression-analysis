@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 基础知识：矩阵代数和随机向量 | Jim 学回归分析</title>
+  <meta name="description" content="test" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 基础知识：矩阵代数和随机向量 | Jim 学回归分析" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="test" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 基础知识：矩阵代数和随机向量 | Jim 学回归分析" />
+  
+  <meta name="twitter:description" content="test" />
+  
+
+<meta name="author" content="Jim Zhang" />
+
+
+<meta name="date" content="2021-08-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Jim 学回归分析</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> test</a></li>
+<li class="chapter" data-level="2" data-path="prelimnary.html"><a href="prelimnary.html"><i class="fa fa-check"></i><b>2</b> 基础知识：矩阵代数和随机向量</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="prelimnary.html"><a href="prelimnary.html#矩阵代数"><i class="fa fa-check"></i><b>2.1</b> 矩阵代数</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="prelimnary.html"><a href="prelimnary.html#基本性质"><i class="fa fa-check"></i><b>2.1.1</b> 基本性质</a></li>
+<li class="chapter" data-level="2.1.2" data-path="prelimnary.html"><a href="prelimnary.html#二次型的均值与方差"><i class="fa fa-check"></i><b>2.1.2</b> 二次型的均值与方差</a></li>
+<li class="chapter" data-level="2.1.3" data-path="prelimnary.html"><a href="prelimnary.html#练习"><i class="fa fa-check"></i><b>2.1.3</b> 练习</a></li>
+<li class="chapter" data-level="2.1.4" data-path="prelimnary.html"><a href="prelimnary.html#矩母函数"><i class="fa fa-check"></i><b>2.1.4</b> 矩母函数</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li><a href="https://jimzhang.me" target="blank">Jim Zhang 的博客</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jim 学回归分析</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prelimnary" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 基础知识：矩阵代数和随机向量</h1>
+<div id="矩阵代数" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> 矩阵代数</h2>
+<p>这一部分准备了矩阵代数的必要的预备知识，以便以后在本书中使用。</p>
+<div id="基本性质" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> 基本性质</h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 2.1  </strong></span><strong>期望</strong>. 设 <span class="math inline">\(\boldsymbol{Z}=(Z_{ij})_{m\times n}\)</span>，定义 <span class="math inline">\(E\boldsymbol{Z}=(EZ_{ij})_{m\times n}\)</span>. 设 <span class="math inline">\(\boldsymbol{A},\boldsymbol{B}\)</span> 和 <span class="math inline">\(\boldsymbol{C}\)</span> 都是确定的矩阵，<span class="math inline">\(\boldsymbol{X}\)</span> 为随机矩阵，那么有 <span class="math inline">\(E(\boldsymbol{A}\boldsymbol{X}\boldsymbol{B}+\boldsymbol{C})=\boldsymbol{A}E(\boldsymbol{X})\boldsymbol{B}+\boldsymbol{C}\)</span>.</p>
+<p><strong>协方差</strong>. 设 <span class="math inline">\(\boldsymbol{X}\)</span> 和 <span class="math inline">\(\boldsymbol{Y}\)</span> 分别是 <span class="math inline">\(m\)</span> 和 <span class="math inline">\(n\)</span> 维的随机向量。定义 <span class="math inline">\(\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})=(\mathrm{Cov}(X_i,Y_j))_{m\times n}\)</span>, <span class="math inline">\(\mathrm{Var}(\boldsymbol{X})=\mathrm{Cov}(\boldsymbol{X},\boldsymbol{X})\)</span>. <span class="math inline">\(\mathrm{Var}(\boldsymbol{X})\)</span> 也记作 <span class="math inline">\(\mathrm{Cov}(\boldsymbol{X})\)</span>.</p>
+<p>设 <span class="math inline">\(\boldsymbol{X}\)</span> 的均值为 <span class="math inline">\(\boldsymbol{\mu}\)</span>，方差为 <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. 有的时候写作 <span class="math inline">\(\boldsymbol{X}\sim(\boldsymbol{\mu},\boldsymbol{\Sigma})\)</span>.</p>
+<p>则有如下性质：</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})=E[(\boldsymbol{X}-E\boldsymbol{X})(\boldsymbol{Y}-E\boldsymbol{Y})^\mathrm{T}]=E(\boldsymbol{X}\boldsymbol{Y}^\mathrm{T})-E\boldsymbol{X}E\boldsymbol{Y}^\mathrm{T}\)</span>. 因此，</p>
+<ol style="list-style-type: decimal">
+<li><p>一般地，<span class="math inline">\(\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})=\mathrm{Cov}(\boldsymbol{Y},\boldsymbol{X})^\mathrm{T}\)</span>，</p></li>
+<li><p><span class="math inline">\(\mathrm{Var}(\boldsymbol{X})=E[(\boldsymbol{X}-E\boldsymbol{X})(\boldsymbol{X}-E\boldsymbol{X})^\mathrm{T}]=E(\boldsymbol{X}\boldsymbol{X}^\mathrm{T})-E\boldsymbol{X}E\boldsymbol{X}^\mathrm{T}\)</span>.</p></li>
+</ol></li>
+<li><p><span class="math inline">\(\mathrm{Cov}(\boldsymbol{X}+\boldsymbol{Y})=\mathrm{Cov}(\boldsymbol{X})+\mathrm{Cov}(\boldsymbol{Y})+\mathrm{Cov}(\boldsymbol{X}, \boldsymbol{Y})+\mathrm{Cov}(\boldsymbol{Y},\boldsymbol{X})\)</span>.</p></li>
+<li><p><span class="math inline">\(\mathrm{Cov}(\boldsymbol{X}+\boldsymbol{C})=\mathrm{Cov}(\boldsymbol{X})\)</span>，其中 <span class="math inline">\(\boldsymbol{C}\)</span> 是一个确定的向量.</p></li>
+<li><p><span class="math inline">\(\mathrm{Cov}(\boldsymbol{A}\boldsymbol{X},\boldsymbol{B}\boldsymbol{Y})=\boldsymbol{A}\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})\boldsymbol{B}^\mathrm{T}\)</span>.</p></li>
+<li><p><span class="math inline">\(\mathrm{Var}(\boldsymbol{X})\geq0\)</span> ……</p></li>
+</ol>
+</div>
+<p>书上认为这些性质是显然的，但是👴看不出来，一个一个推导哈。</p>
+<p><strong>证明</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li>Jim 认为，这本书应该是默认了 <span class="math inline">\(\boldsymbol{X},\boldsymbol{Y}\)</span> 这种均为列向量，即 <span class="math inline">\(\boldsymbol{X}=(X_1, X_2, \cdots, X_m)^\mathrm{T},\boldsymbol{Y}=(Y_1, Y_2, \cdots, Y_n)^\mathrm{T}\)</span>.
+<span class="math display">\[
+\begin{align}
+\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})
+&amp;=(\mathrm{Cov}(X_i,Y_j))_{m\times n} \\
+&amp;=(E[(X_i-EX_i)(Y_j-EY_j)])_{m\times n}=E[(\boldsymbol{X}-E\boldsymbol{X})(\boldsymbol{Y}-E\boldsymbol{Y})^\mathrm{T}] \\
+&amp;=(E(X_iY_j-Y_jEX_i-X_iEY_j+EX_iEY_j))_{m\times n} \\
+&amp;=(E(X_iY_j)-EX_iEY_j)_{m\times n}=E(\boldsymbol{X}\boldsymbol{Y}^\mathrm{T})-E\boldsymbol{X}E\boldsymbol{Y}^\mathrm{T}.
+\end{align}
+\]</span></li>
+</ol>
+<ol style="list-style-type: decimal">
+<li><span class="math display">\[
+\begin{align}
+\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})
+&amp;=E(\boldsymbol{X}\boldsymbol{Y}^\mathrm{T})-E\boldsymbol{X}E\boldsymbol{Y}^\mathrm{T} \\
+\mathrm{Cov}(\boldsymbol{Y},\boldsymbol{X})
+&amp;=E(\boldsymbol{Y}\boldsymbol{X}^\mathrm{T})-E\boldsymbol{Y}E\boldsymbol{X}^\mathrm{T} \\
+&amp;=((E(\boldsymbol{Y}\boldsymbol{X}^\mathrm{T})-E\boldsymbol{Y}E\boldsymbol{X}^\mathrm{T})^\mathrm{T})^\mathrm{T}
+=(E((\boldsymbol{Y}\boldsymbol{X}^\mathrm{T})^\mathrm{T})-E\boldsymbol{Y}^\mathrm{T}E\boldsymbol{X})^\mathrm{T} \\
+&amp;=(E(\boldsymbol{X}\boldsymbol{Y}^\mathrm{T})-E\boldsymbol{X}E\boldsymbol{Y}^\mathrm{T})^\mathrm{T}=\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})^\mathrm{T}.
+\end{align}
+\]</span></li>
+<li>显然.</li>
+</ol>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>我觉得写错了，这 <span class="math inline">\(\boldsymbol{X}\)</span> 和 <span class="math inline">\(\boldsymbol{Y}\)</span> 怎么加啊。。。</p></li>
+<li><p>显然.</p></li>
+<li><p><span class="math display">\[
+\begin{align}
+\mathrm{Cov}(\boldsymbol{A}\boldsymbol{X},\boldsymbol{B}\boldsymbol{Y})
+&amp;=E(\boldsymbol{A}\boldsymbol{X}(\boldsymbol{B}\boldsymbol{Y})^\mathrm{T})-E(\boldsymbol{A}\boldsymbol{X})E(\boldsymbol{B}\boldsymbol{Y})^\mathrm{T} \\
+&amp;=\boldsymbol{A}E(\boldsymbol{X}\boldsymbol{Y}^\mathrm{T})\boldsymbol{B}^\mathrm{T}-\boldsymbol{A}E\boldsymbol{X}E\boldsymbol{Y}^\mathrm{T}\boldsymbol{B}^\mathrm{T} \\
+&amp;=\boldsymbol{A}\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y})\boldsymbol{B}^\mathrm{T}
+\end{align}
+\]</span>
+<strong>例 1.1</strong></p></li>
+</ol>
+<p>设 <span class="math inline">\(\boldsymbol{X}\)</span> 可逆。试找出一个矩阵 <span class="math inline">\(\boldsymbol{M}\)</span> 使得 <span class="math inline">\(\mathrm{Cov}(\boldsymbol{X},\boldsymbol{Y}-\boldsymbol{M}\boldsymbol{X})=\boldsymbol{0}\)</span>，并解释这个等式说明了什么。</p>
+<p><strong>例 1.2</strong></p>
+<p>设 <span class="math inline">\(X\sim B(n,p), Y=n-X\)</span>. 则
+<span class="math display">\[
+\begin{align}
+\mathrm{Var}
+\begin{pmatrix}
+X \\ Y
+\end{pmatrix}
+&amp;=\mathrm{Var}
+\begin{pmatrix}
+X \\ n-X
+\end{pmatrix}
+=\mathrm{Var}
+\left(
+\begin{pmatrix}
+1 \\ -1
+\end{pmatrix}
+X+
+\begin{pmatrix}
+0 \\ n
+\end{pmatrix}
+\right)
+=\mathrm{Var}
+\left(
+\begin{pmatrix}
+1 \\ -1
+\end{pmatrix}
+X
+\right) \\
+&amp;=
+\begin{pmatrix}
+1 \\ -1
+\end{pmatrix}
+\mathrm{Var}(X)
+\begin{pmatrix}
+1 &amp; -1
+\end{pmatrix}
+=np(1-p)
+\begin{pmatrix}
+1 &amp; -1 \\
+-1 &amp; 1
+\end{pmatrix}.
+\end{align}
+\]</span>
+方差矩阵为奇异矩阵。</p>
+</div>
+<div id="二次型的均值与方差" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> 二次型的均值与方差</h3>
+<p><strong>定理 1.6</strong></p>
+<p>设 <span class="math inline">\(E\boldsymbol{X}=\boldsymbol{\mu}, \mathrm{Var}(\boldsymbol{X})=\boldsymbol{\Sigma}\)</span>. 则有：
+<span class="math display">\[
+E(\boldsymbol{X}^\mathrm{T}\boldsymbol{A}\boldsymbol{X})=\mathrm{tr}(\boldsymbol{A}\boldsymbol{\Sigma})+\boldsymbol{\mu}^\mathrm{T}\boldsymbol{A}\boldsymbol{\mu}.
+\]</span>
+特别地，
+<span class="math display">\[
+E((\boldsymbol{X}-\boldsymbol{b})^\mathrm{T}\boldsymbol{A}(\boldsymbol{X}-\boldsymbol{b}))=\mathrm{tr}(\boldsymbol{A}\boldsymbol{\Sigma})+(\boldsymbol{\mu}-\boldsymbol{b})^\mathrm{T}\boldsymbol{A}(\boldsymbol{\mu}-\boldsymbol{b}).
+\]</span>
+进一步，如果 <span class="math inline">\(\boldsymbol{\Sigma}=\sigma^2\boldsymbol{I}\)</span>，则有：
+<span class="math display">\[
+E(\boldsymbol{X}^\mathrm{T}\boldsymbol{A}\boldsymbol{X})
+=\sigma^2\mathrm{tr}(\boldsymbol{A})+\boldsymbol{\mu}^\mathrm{T}\boldsymbol{A}\boldsymbol{\mu}.
+\]</span>
+<strong>证明</strong></p>
+<p>我是真的菜，又看不出来，只好硬算惹。
+<span class="math display">\[
+\begin{align}
+E(\boldsymbol{X}^\mathrm{T}\boldsymbol{A}\boldsymbol{X})
+&amp;=
+E\left[
+\begin{pmatrix}X_1 &amp; X_2 &amp; \cdots &amp;X_n\end{pmatrix}
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn} \\
+\end{pmatrix}
+\begin{pmatrix}
+X_1 \\ X_2 \\ \vdots \\ X_n \\\end{pmatrix}
+\right] \\
+&amp;= E(\sum_{j=1}^n\sum_{i=1}^na_{ij}X_iX_j) = \sum_{j=1}^n\sum_{i=1}^na_{ij}E(X_iX_j) \\
+&amp;= \sum_{i=1}^n\sum_{j=1}^na_{ij}(\mathrm{Cov}(X_i,X_j)+\mu_i\mu_j) \\
+&amp;=\sum_{i=1}^n\sum_{j=1}^na_{ij}\mathrm{Cov}(X_i,X_j)+\sum_{i=1}^n\sum_{j=1}^na_{ij}\mu_i\mu_j \\
+&amp;=\mathrm{tr}(\boldsymbol{A}\boldsymbol{\Sigma})+\boldsymbol{\mu}^\mathrm{T}\boldsymbol{A}\boldsymbol{\mu}
+\end{align}
+\]</span>
+剩下两特例显然。</p>
+<p><strong>例 1.3</strong></p>
+<p><span class="math inline">\(\boldsymbol{X}\sim(\boldsymbol{\mu},\sigma^2\boldsymbol{I}_n)\)</span>，其中 <span class="math inline">\(\boldsymbol{\mu}=(\mu_1,\mu_2,\cdots,\mu_n)^\mathrm{T}\)</span>，
+<span class="math display">\[
+\begin{align}
+Q&amp;=\sum_{i=1}^{n-1}(X_i-X_{i+1})^2=2\sum_{i=1}^{n}X_i^2-X_1^2-X_n^2-2\sum_{i=1}^{n-1}X_iX_{i+1}, \\
+EQ&amp;=2\sum_{i=1}^{n}E(X_i^2)-E(X_1^2)-E(X_n^2)-2\sum_{i=1}^{n-1}E(X_iX_{i+1})
+\\
+&amp;=2\sum_{i=1}^{n}((EX_i)^2+\mathrm{Var}(X_i))-((EX_1)^2+\mathrm{Var}(X_1)) \\
+&amp;\quad-((EX_n)^2+\mathrm{Var}(X_n))-2\sum_{i=1}^{n-1}(EX_iEX_{i+1}+\mathrm{Cov}(X_i,X_{i+1}))
+\\
+&amp;=2(n-1)\sigma^2+\sum_{i=1}^{n-1}(\mu_i-\mu_{i+1})^2.
+\end{align}
+\]</span>
+<strong>例 1.4</strong></p>
+<p>设 <span class="math inline">\(\boldsymbol{X}\sim(\mu\boldsymbol{1}_n,\sigma^2((1-\rho)\boldsymbol{I}_n+\rho\boldsymbol{1}_n\boldsymbol{1}_n^\mathrm{T}))\)</span>，其中 <span class="math inline">\(\mu\)</span> 是个标量。令 <span class="math inline">\(\displaystyle Q=\sum_{i=1}^n(X_i-\bar{X})^2\)</span>，求 <span class="math inline">\(EQ\)</span>.</p>
+真奇怪，这题为什么不说人话，就应该直接说：
+$$
+(
+<span class="math display">\[\begin{pmatrix}
+\mu \\ \mu \\ \vdots \\ \mu
+\end{pmatrix}\]</span>
+,^2
+<span class="math display">\[\begin{pmatrix}
+1 &amp; \rho &amp; \cdots &amp; \rho \\
+\rho &amp; 1 &amp; \cdots &amp; \rho \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\rho &amp; \rho &amp; \cdots &amp; 1
+\end{pmatrix}\]</span>
+<p>).
+<span class="math display">\[
+那么
+\]</span>
+<span class="math display">\[\begin{align}
+E\bar{X}&amp;=\mu,\\
+\mathrm{Var}(\bar{X})&amp;=E(\bar{X}^2)-(E(\bar{X}))^2 \\
+&amp;=E\left((\frac{1}{n}\sum_{i=1}^nX_i)^2\right)-\mu^2 \\
+&amp;=\frac{1}{n^2}\left(\sum_{i=1}^nE(X_i^2)+2\sum_{i=1}^n\sum_{j&gt;i}^nE(X_iX_j)\right)-\mu^2 \\
+&amp;=\frac{1}{n^2}\left(n\mu^2+n\sigma^2+n(n-1)\mu^2+n(n-1)\rho\sigma^2\right)-\mu^2 \\
+&amp;=(\frac{1}{n}+\frac{n-1}{n}\rho)\sigma^2, \\
+\bar{X}&amp;\sim\left(\mu,(\frac{1}{n}+\frac{n-1}{n}\rho)\sigma^2\right).
+\end{align}\]</span>
+<span class="math display">\[
+从而
+\]</span>
+<span class="math display">\[\begin{align}
+Q&amp;=\sum_{i=1}^n(X_i-\bar{X})^2=\sum_{i=1}^nX_i^2-2\sum_{i=1}^nX_i\bar{X}+n\bar{X}^2 \\
+EQ&amp;=\sum_{i=1}^nE(X_i^2)-\frac{2}{n}\sum_{i=1}^n\sum_{j=1}^nE\left(X_iX_j\right)+nE(\bar{X}^2) \\
+&amp;=n\mu^2+n\sigma^2-\frac{2}{n}(n^2\mu^2+n(n-1)\rho\sigma^2+n\sigma^2)+n(\mu^2+(\frac{1}{n}+\frac{n-1}{n}\rho)\sigma^2) \\
+&amp;=(n-1)(\rho+1)\sigma^2.
+\end{align}\]</span>
+$$</p>
+<p><strong>定理 1.7</strong></p>
+<p>设 <span class="math inline">\(\boldsymbol{X}_{n\times1}\)</span></p>
+</div>
+<div id="练习" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> 练习</h3>
+<p><strong>Q1</strong>. 设随机变量 <span class="math inline">\(X_1,X_2,X_3\)</span> 是三个具有相同均值 <span class="math inline">\(\mu\)</span> 的随机变量，方差矩阵为：
+<span class="math display">\[
+\mathrm{Var}(\boldsymbol{X})=\sigma^2
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; \displaystyle\frac{1}{4} \\
+0 &amp; \displaystyle\frac{1}{4} &amp; 1
+\end{pmatrix}.
+\]</span>
+求 <span class="math inline">\(E(X_1^2+2X_1X_2-4X_2X_3+X_3^2)\)</span>.</p>
+<p><strong>Q2</strong>. 设 <span class="math inline">\(\boldsymbol{X}=(X_1,X_2,X_3)^\mathrm{T}\)</span>，方差矩阵为：
+<span class="math display">\[
+\mathrm{Var}(\boldsymbol{X})=
+\begin{pmatrix}
+5 &amp; 2 &amp; 3 \\
+2 &amp; 3 &amp; 0 \\
+3 &amp; 0 &amp; 3
+\end{pmatrix}.
+\]</span>
+(1) 求 <span class="math inline">\(\mathrm{Var}(X_1-2X_2+X_3)\)</span>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>求 <span class="math inline">\(\boldsymbol{Y}=(Y_1,Y_2)^\mathrm{T}\)</span> 的方差矩阵，其中 <span class="math inline">\(Y_1=X_1+X_2,Y_2=X_1+X_2+X_3\)</span>.</li>
+</ol>
+<p><strong>Q5</strong>. 令 <span class="math inline">\(X_1,\cdots,X_n\)</span> 为独立同分布的随机变量，其遵循 <span class="math inline">\(N(\mu,\sigma^2)\)</span>，定义：
+<span class="math display">\[
+S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar{X})^2,Q=\frac{1}{2(n-1)}\sum_{i=1}^{n-1}(X_{i+1}-X_i)^2.
+\]</span>
+(1) 证明：<span class="math inline">\(\displaystyle\mathrm{Var}(S^2)=\frac{2\sigma^4}{n-1}\)</span></p>
+<p><strong>Q6</strong>. 令 <span class="math inline">\(X_1,\cdots,X_n\)</span> 为独立同分布的随机变量，其遵循 <span class="math inline">\(N(0,\sigma^2)\)</span>，<span class="math inline">\(\boldsymbol{X}=(X_1,\cdots,X_n)^\mathrm{T}\)</span> 以及任意实对称阵 <span class="math inline">\(\boldsymbol{A}\)</span> 和 <span class="math inline">\(\boldsymbol{B}\)</span>，试证明：
+<span class="math display">\[
+\mathrm{Cov}(\boldsymbol{X}^\mathrm{T}\boldsymbol{A}\boldsymbol{X},\boldsymbol{X}^\mathrm{T}\boldsymbol{B}\boldsymbol{X})=2\sigma^2\mathrm{tr}(\boldsymbol{A}\boldsymbol{B}).
+\]</span></p>
+<p><strong>A1</strong>. 这不难，硬算都可以的：
+<span class="math display">\[
+\begin{align}
+&amp;\quad\;E(X_1^2+2X_1X_2-4X_2X_3+X_3^2) \\
+&amp;=E(X_1^2)+2E(X_1X_2)-4E(X_2X_3)+E(X_3^2) \\
+&amp;=\mu^2+\sigma^2+2(\mu^2+0)-4(\mu^2+\frac{1}{4}\sigma^2)+\mu^2+\sigma^2 \\
+&amp;=\sigma^2.
+\end{align}
+\]</span></p>
+</div>
+<div id="矩母函数" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> 矩母函数</h3>
+<p><strong>定义 1.5</strong></p>
+<p>定义随机向量 <span class="math inline">\(\boldsymbol{X}\)</span> 的矩母函数（moment generating function, mgf） <span class="math inline">\(M_{\boldsymbol{X}}(\boldsymbol{t})=E[\exp{\boldsymbol{t}^\mathrm{T}\boldsymbol{X}}]\)</span>.</p>
+<p>这个函数可以产生 <span class="math inline">\(\boldsymbol{X}\)</span> 的所有矩（显然，用 Taylor 级数就可以说明），我们在此处讨论一般情况。因为 <span class="math inline">\(\displaystyle \mathrm{e}^{tx}=\sum_{x=0}^\infty\frac{t^nX^n}{n!}\)</span>，则 <span class="math inline">\(\displaystyle M_X(t)=\sum_{x=0}^\infty\frac{t^n}{n!}EX^n, M_X^{(n)}(0)=EX^n\)</span>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["regression-analysis.pdf", "regression-analysis.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

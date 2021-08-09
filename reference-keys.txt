@@ -1,0 +1,8 @@
+test
+prelimnary
+矩阵代数
+def:unlabeled-div-1
+基本性质
+二次型的均值与方差
+练习
+矩母函数
